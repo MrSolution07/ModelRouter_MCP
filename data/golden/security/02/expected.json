@@ -1,0 +1,8 @@
+{
+  "taskType": "security",
+  "complexityRange": {
+    "min": 5,
+    "max": 8
+  },
+  "notes": "Golden fixture security/02"
+}
