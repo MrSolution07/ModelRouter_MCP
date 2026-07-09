@@ -23,6 +23,7 @@ npm install
 npm run build
 npm test
 npm run validate-schemas
+npm run smoke
 ```
 
 ### Cursor MCP Configuration
@@ -68,7 +69,24 @@ npm run lint:cursor-denylist
 
 ## Registry
 
-Seed models live in `data/models/`. Registry uses static seeds until Phase 6 sync is enabled.
+Seed models live in `data/models/`. Run `sync_metadata` to refresh from fixture-based adapters (OpenRouter, SWE-bench, Anthropic docs, Ollama). Registry uses static seeds until first successful sync.
+
+## Implementation status
+
+| Phase | Status |
+|-------|--------|
+| 0 Contracts | Complete |
+| 1 MCP transport | Complete |
+| 2 Registry | Complete (8 seeds) |
+| 3 Analysis + golden set | Complete (30 fixtures) |
+| 4 Scoring | Complete |
+| 5 E2E static_seed | Complete |
+| 6 Sync | Complete (fixture-based) |
+| 7 Benchmark ingest | Complete |
+| 8 Internal validation | Complete (opt-in) |
+| 9 Telemetry + guidance | Complete |
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for maintainer workflows.
 
 ## License
 
