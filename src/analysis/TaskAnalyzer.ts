@@ -48,16 +48,30 @@ export function analyzeTask(planPath: string, repoSummary?: { fileCount: number 
 
   if (bestScore === 0) bestType = "ambiguous";
 
-  let complexity = 5;
+  const typeComplexityBase: Record<string, number> = {
+    trivial_docs: 2,
+    crud: 4,
+    multi_file_feature: 6,
+    refactoring: 6,
+    architecture: 8,
+    security: 7,
+    ambiguous: 5,
+    monorepo: 6,
+  };
+
+  let wordComplexity = 5;
   if (wordCount <= (signals.complexitySignals.low?.maxWords ?? 200) && fileCount <= (signals.complexitySignals.low?.maxFiles ?? 2)) {
-    complexity = signals.complexitySignals.low?.score ?? 2;
+    wordComplexity = signals.complexitySignals.low?.score ?? 2;
   } else if (wordCount <= (signals.complexitySignals.medium?.maxWords ?? 800) && fileCount <= (signals.complexitySignals.medium?.maxFiles ?? 8)) {
-    complexity = signals.complexitySignals.medium?.score ?? 5;
+    wordComplexity = signals.complexitySignals.medium?.score ?? 5;
   } else if (wordCount <= (signals.complexitySignals.high?.maxWords ?? 2000) && fileCount <= (signals.complexitySignals.high?.maxFiles ?? 20)) {
-    complexity = signals.complexitySignals.high?.score ?? 8;
+    wordComplexity = signals.complexitySignals.high?.score ?? 8;
   } else {
-    complexity = signals.complexitySignals.veryHigh?.score ?? 10;
+    wordComplexity = signals.complexitySignals.veryHigh?.score ?? 10;
   }
+
+  const typeBase = typeComplexityBase[bestType] ?? 5;
+  const complexity = Math.min(10, Math.max(typeBase, wordComplexity));
 
   const baseVector = { ...signals.signals[bestType]?.vector ?? signals.signals.ambiguous!.vector };
   const scale = 0.8 + complexity / 25;
