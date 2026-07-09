@@ -15,6 +15,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify-cursor-ids": "tsx scripts/verify-cursor-ids.ts",
+    "smoke": "tsx scripts/smoke-test.ts",
+    "generate-golden": "tsx scripts/generate-golden-fixtures.ts",
     "lint:cursor-denylist": "tsx scripts/lint-cursor-denylist.ts"
   },
   "engines": {
