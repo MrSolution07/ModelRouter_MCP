@@ -1,0 +1,8 @@
+{
+  "taskType": "multi_file_feature",
+  "complexityRange": {
+    "min": 5,
+    "max": 8
+  },
+  "notes": "Golden fixture multi_file_feature/01"
+}
