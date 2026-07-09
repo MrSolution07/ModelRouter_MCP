@@ -19,44 +19,220 @@
   "version": "4",
   "releaseDate": "2025-01-01T00:00:00.000Z",
   "deprecatedAt": null,
-  "availability": { "regions": ["global"], "requiresMaxMode": false, "tier": "standard" },
+  "availability": {
+    "regions": [
+      "global"
+    ],
+    "requiresMaxMode": false,
+    "tier": "standard"
+  },
   "pricing": {
-    "inputPerMillion": { "value": 3.0, "provenance": { "source": "provider_docs", "sourceUrl": "https://cursor.com/docs/models-and-pricing", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "outputPerMillion": { "value": 15.0, "provenance": { "source": "provider_docs", "sourceUrl": "https://cursor.com/docs/models-and-pricing", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "inputPerMillion": {
+      "value": 3,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": "https://docs.anthropic.com",
+        "retrievedAt": "2026-07-09T20:02:13.814Z",
+        "lastVerified": "2026-07-09T20:02:13.814Z",
+        "confidence": 0.85,
+        "license": "provider ToS"
+      }
+    },
+    "outputPerMillion": {
+      "value": 15,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": "https://docs.anthropic.com",
+        "retrievedAt": "2026-07-09T20:02:13.814Z",
+        "lastVerified": "2026-07-09T20:02:13.814Z",
+        "confidence": 0.85,
+        "license": "provider ToS"
+      }
+    },
     "currency": "USD",
     "unknown": false
   },
   "context": {
-    "maxInputTokens": { "value": 200000, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "maxOutputTokens": { "value": 8192, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+    "maxInputTokens": {
+      "value": 200000,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "maxOutputTokens": {
+      "value": 8192,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    }
   },
   "features": {
-    "vision": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "functionCalling": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "toolUse": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "structuredOutput": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "streaming": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "reasoningMode": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+    "vision": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "functionCalling": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "toolUse": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "structuredOutput": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "streaming": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "reasoningMode": {
+      "value": false,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    }
   },
   "capabilities": {
-    "coding": { "value": 8.2, "provenance": { "source": "benchmark_ingest", "sourceUrl": "data/benchmarks/fixtures/swe-bench.json", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.85, "license": null } },
-    "reasoning": { "value": 8.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
-    "planning": { "value": 8.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
-    "longContext": { "value": 9.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } }
+    "coding": {
+      "value": 8.2,
+      "provenance": {
+        "source": "benchmark_ingest",
+        "sourceUrl": "/Users/christian/Documents/GitHub/ModelRouter_MCP/data/benchmarks/fixtures/swe-bench.json",
+        "retrievedAt": "2026-07-09T20:02:13.812Z",
+        "lastVerified": "2026-07-09T20:02:13.812Z",
+        "confidence": 1,
+        "license": "research"
+      }
+    },
+    "reasoning": {
+      "value": 8.5,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.35,
+        "license": null
+      }
+    },
+    "planning": {
+      "value": 8,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.35,
+        "license": null
+      }
+    },
+    "longContext": {
+      "value": 9,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.35,
+        "license": null
+      }
+    }
   },
-  "benchmarks": [{
-    "name": "swe-bench-verified",
-    "rawScore": 72.5,
-    "normalizedScore": 8.2,
-    "mappedDimensions": ["coding"],
-    "benchmarkModelAlias": "anthropic-claude-sonnet",
-    "provenance": { "source": "benchmark_ingest", "sourceUrl": "data/benchmarks/fixtures/swe-bench.json", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.85, "license": null }
-  }],
+  "benchmarks": [
+    {
+      "name": "swe-bench-verified",
+      "rawScore": 72.5,
+      "normalizedScore": 8.2,
+      "mappedDimensions": [
+        "coding"
+      ],
+      "benchmarkModelAlias": "anthropic-claude-sonnet",
+      "provenance": {
+        "source": "benchmark_ingest",
+        "sourceUrl": "data/benchmarks/fixtures/swe-bench.json",
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.85,
+        "license": null
+      }
+    }
+  ],
   "latency": {
-    "p50Ms": { "value": 7000, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+    "p50Ms": {
+      "value": 7000,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    }
   },
-  "aliases": ["claude-sonnet", "anthropic/claude-sonnet"],
+  "aliases": [
+    "claude-sonnet",
+    "anthropic/claude-sonnet"
+  ],
   "validationStatus": "ok",
-  "limitations": ["Higher cost for simple tasks"],
-  "strengths": ["Large codebases", "Planning", "Refactoring"]
+  "limitations": [
+    "Higher cost for simple tasks"
+  ],
+  "strengths": [
+    "Large codebases",
+    "Planning",
+    "Refactoring"
+  ]
 }

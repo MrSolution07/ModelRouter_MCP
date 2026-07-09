@@ -19,44 +19,218 @@
   "version": "4o",
   "releaseDate": "2024-05-01T00:00:00.000Z",
   "deprecatedAt": null,
-  "availability": { "regions": ["global"], "requiresMaxMode": false, "tier": "standard" },
+  "availability": {
+    "regions": [
+      "global"
+    ],
+    "requiresMaxMode": false,
+    "tier": "standard"
+  },
   "pricing": {
-    "inputPerMillion": { "value": 2.5, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "outputPerMillion": { "value": 10.0, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "inputPerMillion": {
+      "value": 2.5,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "outputPerMillion": {
+      "value": 10,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
     "currency": "USD",
     "unknown": false
   },
   "context": {
-    "maxInputTokens": { "value": 128000, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "maxOutputTokens": { "value": 16384, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+    "maxInputTokens": {
+      "value": 128000,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "maxOutputTokens": {
+      "value": 16384,
+      "provenance": {
+        "source": "provider_docs",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    }
   },
   "features": {
-    "vision": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "functionCalling": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "toolUse": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "structuredOutput": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "streaming": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
-    "reasoningMode": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+    "vision": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "functionCalling": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "toolUse": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "structuredOutput": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "streaming": {
+      "value": true,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    },
+    "reasoningMode": {
+      "value": false,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    }
   },
   "capabilities": {
-    "coding": { "value": 7.8, "provenance": { "source": "benchmark_ingest", "sourceUrl": "data/benchmarks/fixtures/swe-bench.json", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.85, "license": null } },
-    "reasoning": { "value": 8.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
-    "planning": { "value": 7.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
-    "longContext": { "value": 7.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } }
+    "coding": {
+      "value": 7.8,
+      "provenance": {
+        "source": "benchmark_ingest",
+        "sourceUrl": "/Users/christian/Documents/GitHub/ModelRouter_MCP/data/benchmarks/fixtures/swe-bench.json",
+        "retrievedAt": "2026-07-09T20:02:13.814Z",
+        "lastVerified": "2026-07-09T20:02:13.814Z",
+        "confidence": 1,
+        "license": "research"
+      }
+    },
+    "reasoning": {
+      "value": 8,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.35,
+        "license": null
+      }
+    },
+    "planning": {
+      "value": 7.5,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.35,
+        "license": null
+      }
+    },
+    "longContext": {
+      "value": 7,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.35,
+        "license": null
+      }
+    }
   },
-  "benchmarks": [{
-    "name": "swe-bench-verified",
-    "rawScore": 68.0,
-    "normalizedScore": 7.8,
-    "mappedDimensions": ["coding"],
-    "benchmarkModelAlias": "openai-gpt-4o",
-    "provenance": { "source": "benchmark_ingest", "sourceUrl": "data/benchmarks/fixtures/swe-bench.json", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.85, "license": null }
-  }],
+  "benchmarks": [
+    {
+      "name": "swe-bench-verified",
+      "rawScore": 68,
+      "normalizedScore": 7.8,
+      "mappedDimensions": [
+        "coding"
+      ],
+      "benchmarkModelAlias": "openai-gpt-4o",
+      "provenance": {
+        "source": "benchmark_ingest",
+        "sourceUrl": "data/benchmarks/fixtures/swe-bench.json",
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.85,
+        "license": null
+      }
+    }
+  ],
   "latency": {
-    "p50Ms": { "value": 5000, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+    "p50Ms": {
+      "value": 5000,
+      "provenance": {
+        "source": "manual_curated",
+        "sourceUrl": null,
+        "retrievedAt": "2026-01-01T00:00:00.000Z",
+        "lastVerified": "2026-01-01T00:00:00.000Z",
+        "confidence": 0.3,
+        "license": null
+      }
+    }
   },
-  "aliases": ["gpt-4o", "openai/gpt-4o"],
+  "aliases": [
+    "gpt-4o",
+    "openai/gpt-4o"
+  ],
   "validationStatus": "ok",
   "limitations": [],
-  "strengths": ["General purpose", "Vision", "Fast responses"]
+  "strengths": [
+    "General purpose",
+    "Vision",
+    "Fast responses"
+  ]
 }
