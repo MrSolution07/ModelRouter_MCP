@@ -1,0 +1,8 @@
+{
+  "taskType": "crud",
+  "complexityRange": {
+    "min": 3,
+    "max": 6
+  },
+  "notes": "Golden fixture crud/02"
+}
