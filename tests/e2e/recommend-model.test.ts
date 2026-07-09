@@ -4,7 +4,8 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { registry } from "../../src/registry/ModelRegistry.js";
 import { handleRecommendModel, handleGenerateCursorGuidance } from "../../src/tools/handlers.js";
-import { ingestBenchmarkFixture } from "../../src/sync/adapters/OpenRouterAdapter.js";
+import { BenchmarkIngestService } from "../../src/benchmarks/BenchmarkIngestService.js";
+import { PrivacyGuard } from "../../src/privacy/PrivacyGuard.js";
 import { GUIDANCE_DISCLAIMER } from "../../src/types/index.js";
 
 describe("recommend_model E2E", () => {
@@ -30,11 +31,10 @@ describe("recommend_model E2E", () => {
 
 describe("benchmark alias matching", () => {
   it("matches exact alias and quarantines unknown", () => {
-    const models = registry.getModels().map((m) => ({ id: m.id, aliases: m.aliases, provider: m.provider }));
-    const fixture = path.join(import.meta.dirname, "../../data/benchmarks/fixtures/swe-bench.json");
-    const { matched, quarantined } = ingestBenchmarkFixture(fixture, models);
-    expect(matched.length).toBeGreaterThanOrEqual(1);
-    expect(quarantined).toContain("unknown-model-xyz");
+    const ingest = new BenchmarkIngestService(new PrivacyGuard(false));
+    const result = ingest.ingestFromFixture();
+    expect(result.matched.length).toBeGreaterThanOrEqual(1);
+    expect(result.quarantined).toContain("unknown-model-xyz");
   });
 });
 
