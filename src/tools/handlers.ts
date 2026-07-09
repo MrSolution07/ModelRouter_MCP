@@ -10,6 +10,7 @@ import { SyncService } from "../sync/SyncService.js";
 import { TelemetryStore } from "../telemetry/TelemetryStore.js";
 import { GUIDANCE_DISCLAIMER, STUB_RESPONSE, type ModelRouterConfig } from "../types/index.js";
 import { InternalTaskRunner } from "../validation/InternalTaskRunner.js";
+import { BenchmarkIngestService } from "../benchmarks/BenchmarkIngestService.js";
 
 const privacyGuard = new PrivacyGuard();
 const syncService = new SyncService(privacyGuard);
@@ -275,8 +276,17 @@ export function handleGenerateCursorGuidance(args: { planPath: string; repoPath?
   return response;
 }
 
-export function handleValidate(config?: ModelRouterConfig) {
+export function handleRunInternalValidation(config?: ModelRouterConfig) {
   return internalValidation.validate(mergeConfig(config));
+}
+
+export function handleBenchmarkIngest() {
+  const ingest = new BenchmarkIngestService(privacyGuard);
+  return ingest.ingestFromFixture();
+}
+
+export function handleValidate(config?: ModelRouterConfig) {
+  return handleRunInternalValidation(config);
 }
 
 export { STUB_RESPONSE };

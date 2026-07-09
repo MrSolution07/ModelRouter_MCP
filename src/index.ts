@@ -14,6 +14,8 @@ import {
   handleListModels,
   handleRecommendModel,
   handleSyncMetadata,
+  handleRunInternalValidation,
+  handleBenchmarkIngest,
 } from "./tools/handlers.js";
 
 const server = new McpServer({
@@ -141,6 +143,24 @@ server.tool(
             repoPath: args.repoPath,
             config: args.config as Parameters<typeof handleGenerateCursorGuidance>[0]["config"],
           }),
+          null,
+          2,
+        ),
+      },
+    ],
+  }),
+);
+
+server.tool(
+  "run_internal_validation",
+  "Opt-in internal validation. Disabled by default. May incur API costs. Not continuous engineering-task validation.",
+  { config: z.record(z.unknown()).optional() },
+  async (args) => ({
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify(
+          handleRunInternalValidation(args.config as Parameters<typeof handleRunInternalValidation>[0]),
           null,
           2,
         ),
