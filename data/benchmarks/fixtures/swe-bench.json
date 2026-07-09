@@ -1,0 +1,9 @@
+{
+  "benchmark": "swe-bench-verified",
+  "retrievedAt": "2026-01-01T00:00:00.000Z",
+  "entries": [
+    { "benchmarkModelAlias": "anthropic-claude-sonnet", "rawScore": 72.5, "normalizedScore": 8.2 },
+    { "benchmarkModelAlias": "openai-gpt-4o", "rawScore": 68.0, "normalizedScore": 7.8 },
+    { "benchmarkModelAlias": "unknown-model-xyz", "rawScore": 50.0, "normalizedScore": 5.0 }
+  ]
+}

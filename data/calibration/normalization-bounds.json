@@ -1,0 +1,13 @@
+{
+  "costUsd": {
+    "min": 0,
+    "max": 5.0,
+    "rationale": "provisional per-request ceiling — recalibrate in Phase 7"
+  },
+  "latencyMs": {
+    "min": 200,
+    "max": 120000,
+    "rationale": "provisional"
+  },
+  "calibrationStatus": "provisional"
+}

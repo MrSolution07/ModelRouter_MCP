@@ -1,0 +1,8 @@
+{
+  "taskType": "refactoring",
+  "complexityRange": { "min": 4, "max": 9 },
+  "acceptableRequirementVector": {
+    "coding": { "min": 6, "max": 10 }
+  },
+  "notes": "Golden fixture example — expand to 30+ per data/golden/README.md"
+}

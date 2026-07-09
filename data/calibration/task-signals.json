@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "calibrationStatus": "provisional",
+  "taskTypes": [
+    "trivial_docs",
+    "crud",
+    "multi_file_feature",
+    "refactoring",
+    "architecture",
+    "security",
+    "ambiguous",
+    "monorepo"
+  ],
+  "requirementDimensions": [
+    "coding",
+    "reasoning",
+    "planning",
+    "longContext",
+    "vision",
+    "speed",
+    "costSensitivity"
+  ],
+  "signals": {
+    "trivial_docs": {
+      "keywords": ["readme", "documentation", "typo", "comment", "changelog", "docs"],
+      "vector": { "coding": 2, "reasoning": 2, "planning": 1, "longContext": 1, "vision": 0, "speed": 8, "costSensitivity": 9 }
+    },
+    "crud": {
+      "keywords": ["crud", "endpoint", "api route", "form", "list view", "create update delete", "rest"],
+      "vector": { "coding": 5, "reasoning": 4, "planning": 3, "longContext": 3, "vision": 0, "speed": 6, "costSensitivity": 7 }
+    },
+    "multi_file_feature": {
+      "keywords": ["feature", "implement", "add support", "integration", "multi-file", "across modules"],
+      "vector": { "coding": 7, "reasoning": 6, "planning": 6, "longContext": 5, "vision": 1, "speed": 5, "costSensitivity": 5 }
+    },
+    "refactoring": {
+      "keywords": ["refactor", "restructure", "rename", "extract", "migrate", "cleanup", "deduplicate"],
+      "vector": { "coding": 8, "reasoning": 7, "planning": 5, "longContext": 7, "vision": 0, "speed": 4, "costSensitivity": 4 }
+    },
+    "architecture": {
+      "keywords": ["architecture", "system design", "scalability", "microservice", "distributed", "infrastructure"],
+      "vector": { "coding": 6, "reasoning": 9, "planning": 9, "longContext": 6, "vision": 0, "speed": 3, "costSensitivity": 3 }
+    },
+    "security": {
+      "keywords": ["security", "vulnerability", "auth", "authentication", "authorization", "xss", "injection", "cve"],
+      "vector": { "coding": 7, "reasoning": 8, "planning": 6, "longContext": 5, "vision": 0, "speed": 4, "costSensitivity": 4 }
+    },
+    "ambiguous": {
+      "keywords": ["investigate", "debug", "unknown", "figure out", "research", "explore"],
+      "vector": { "coding": 6, "reasoning": 7, "planning": 5, "longContext": 4, "vision": 1, "speed": 5, "costSensitivity": 5 }
+    },
+    "monorepo": {
+      "keywords": ["monorepo", "workspace", "packages", "nx", "turborepo", "lerna"],
+      "vector": { "coding": 7, "reasoning": 6, "planning": 6, "longContext": 8, "vision": 0, "speed": 4, "costSensitivity": 4 }
+    }
+  },
+  "complexitySignals": {
+    "low": { "maxWords": 200, "maxFiles": 2, "score": 2 },
+    "medium": { "maxWords": 800, "maxFiles": 8, "score": 5 },
+    "high": { "maxWords": 2000, "maxFiles": 20, "score": 8 },
+    "veryHigh": { "minWords": 2000, "minFiles": 20, "score": 10 }
+  }
+}

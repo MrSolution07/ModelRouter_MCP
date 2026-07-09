@@ -1,0 +1,47 @@
+{
+  "id": "openai-gpt-4o-mini",
+  "cursorModelId": {
+    "value": "example-cursor-model-id",
+    "provenance": { "source": "provider_docs", "sourceUrl": "https://cursor.com/docs/models-and-pricing", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null }
+  },
+  "cursorAvailability": "documented",
+  "provider": "openai",
+  "displayName": "GPT-4o Mini (seed)",
+  "status": "active",
+  "statusChangedAt": "2026-01-01T00:00:00.000Z",
+  "version": "4o-mini",
+  "releaseDate": "2024-07-01T00:00:00.000Z",
+  "deprecatedAt": null,
+  "availability": { "regions": ["global"], "requiresMaxMode": false, "tier": "free" },
+  "pricing": {
+    "inputPerMillion": { "value": 0.15, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "outputPerMillion": { "value": 0.6, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "currency": "USD",
+    "unknown": false
+  },
+  "context": {
+    "maxInputTokens": { "value": 128000, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "maxOutputTokens": { "value": 16384, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "features": {
+    "vision": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "functionCalling": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "toolUse": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "structuredOutput": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "streaming": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "reasoningMode": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "capabilities": {
+    "coding": { "value": 6.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "reasoning": { "value": 6.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "planning": { "value": 5.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "longContext": { "value": 6.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } }
+  },
+  "latency": {
+    "p50Ms": { "value": 2000, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "aliases": ["gpt-4o-mini"],
+  "validationStatus": "ok",
+  "limitations": ["Less capable for complex architecture"],
+  "strengths": ["Low cost", "Fast", "Trivial tasks"]
+}

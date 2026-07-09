@@ -1,0 +1,47 @@
+{
+  "id": "google-gemini-pro",
+  "cursorModelId": {
+    "value": "example-cursor-model-id",
+    "provenance": { "source": "provider_docs", "sourceUrl": "https://cursor.com/docs/models-and-pricing", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null }
+  },
+  "cursorAvailability": "documented",
+  "provider": "google",
+  "displayName": "Gemini Pro (seed)",
+  "status": "active",
+  "statusChangedAt": "2026-01-01T00:00:00.000Z",
+  "version": "2.0",
+  "releaseDate": "2024-12-01T00:00:00.000Z",
+  "deprecatedAt": null,
+  "availability": { "regions": ["global"], "requiresMaxMode": false, "tier": "standard" },
+  "pricing": {
+    "inputPerMillion": { "value": 1.25, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "outputPerMillion": { "value": 5.0, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "currency": "USD",
+    "unknown": false
+  },
+  "context": {
+    "maxInputTokens": { "value": 1000000, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "maxOutputTokens": { "value": 8192, "provenance": { "source": "provider_docs", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "features": {
+    "vision": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "functionCalling": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "toolUse": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "structuredOutput": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "streaming": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "reasoningMode": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "capabilities": {
+    "coding": { "value": 7.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "reasoning": { "value": 7.8, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "planning": { "value": 7.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "longContext": { "value": 9.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } }
+  },
+  "latency": {
+    "p50Ms": { "value": 4000, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "aliases": ["gemini-pro", "google/gemini-pro"],
+  "validationStatus": "ok",
+  "limitations": [],
+  "strengths": ["Very long context", "Multimodal"]
+}

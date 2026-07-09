@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./list-models-response.schema.json",
+  "title": "ListModelsResponse",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "error", "not_implemented"]
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "displayName", "provider", "status", "cursorAvailability"],
+        "properties": {
+          "id": { "type": "string" },
+          "displayName": { "type": "string" },
+          "provider": { "type": "string" },
+          "status": { "type": "string" },
+          "cursorAvailability": { "type": "string" },
+          "cursorModelId": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "registrySnapshot": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "loadedAt": { "type": "string", "format": "date-time" },
+        "mode": { "type": "string", "enum": ["static_seed", "synced"] }
+      }
+    },
+    "count": { "type": "integer" },
+    "timingMs": { "type": "number" },
+    "_fixture": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ollama-llama3-local",
+  "cursorAvailability": "not_applicable",
+  "provider": "ollama",
+  "displayName": "Llama 3 Local (seed)",
+  "status": "active",
+  "statusChangedAt": "2026-01-01T00:00:00.000Z",
+  "version": "3",
+  "releaseDate": "2024-04-01T00:00:00.000Z",
+  "deprecatedAt": null,
+  "availability": { "regions": ["local"], "requiresMaxMode": false, "tier": "free" },
+  "pricing": {
+    "inputPerMillion": { "value": 0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "outputPerMillion": { "value": 0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "currency": "USD",
+    "unknown": false
+  },
+  "context": {
+    "maxInputTokens": { "value": 8192, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "maxOutputTokens": { "value": 4096, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "features": {
+    "vision": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "functionCalling": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "toolUse": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "structuredOutput": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "streaming": { "value": true, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } },
+    "reasoningMode": { "value": false, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "capabilities": {
+    "coding": { "value": 5.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "reasoning": { "value": 5.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "planning": { "value": 4.5, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } },
+    "longContext": { "value": 3.0, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.35, "license": null } }
+  },
+  "latency": {
+    "p50Ms": { "value": 800, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
+  },
+  "aliases": ["llama3", "ollama/llama3"],
+  "validationStatus": "ok",
+  "limitations": ["Limited context", "No tool use"],
+  "strengths": ["Free", "Local", "Private", "Fast"]
+}

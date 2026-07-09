@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./recommend-model-response.schema.json",
+  "title": "RecommendModelResponse",
+  "type": "object",
+  "required": ["status", "confidence", "estimates", "analysis", "evidence", "warnings", "registrySnapshot", "timingMs", "guidance"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "no_eligible_models", "filter_conflict", "blocked_by_privacy_mode", "error", "not_implemented"]
+    },
+    "recommended": {
+      "type": ["object", "null"],
+      "properties": {
+        "modelId": { "type": "string" },
+        "cursorModelId": { "type": ["string", "null"] },
+        "cursorAvailability": {
+          "type": "string",
+          "enum": ["verified", "documented", "unverified", "not_applicable"]
+        },
+        "displayName": { "type": "string" },
+        "provider": { "type": "string" },
+        "score": { "type": "number" },
+        "rank": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["modelId", "cursorModelId", "cursorAvailability", "displayName", "provider", "score", "rank"]
+    },
+    "alternatives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["modelId", "cursorModelId", "score", "rank", "summary"],
+        "properties": {
+          "modelId": { "type": "string" },
+          "cursorModelId": { "type": ["string", "null"] },
+          "score": { "type": "number" },
+          "rank": { "type": "integer" },
+          "summary": { "type": "string" }
+        }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "required": ["value", "factors", "calibrationStatus"],
+      "properties": {
+        "value": { "type": "number", "minimum": 0, "maximum": 1 },
+        "factors": {
+          "type": "object",
+          "required": ["evidenceCoverage", "scoreMargin", "dataFreshness", "validationRecency", "contextHeadroom"],
+          "properties": {
+            "evidenceCoverage": { "type": "number" },
+            "scoreMargin": { "type": "number" },
+            "dataFreshness": { "type": "number" },
+            "validationRecency": { "type": "number" },
+            "contextHeadroom": { "type": "number" }
+          }
+        },
+        "calibrationStatus": { "type": "string", "enum": ["provisional", "validated"] }
+      }
+    },
+    "estimates": {
+      "type": "object",
+      "required": ["inputTokens", "outputTokens", "totalTokens", "costUsd", "latencyMs"],
+      "properties": {
+        "inputTokens": { "type": "integer" },
+        "outputTokens": { "type": "integer" },
+        "totalTokens": { "type": "integer" },
+        "costUsd": {
+          "type": "object",
+          "required": ["value", "unknown"],
+          "properties": {
+            "value": { "type": ["number", "null"] },
+            "unknown": { "type": "boolean" }
+          }
+        },
+        "latencyMs": {
+          "type": "object",
+          "required": ["value", "unknown"],
+          "properties": {
+            "value": { "type": ["number", "null"] },
+            "unknown": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["taskType", "complexity", "requirementVector", "repoSummary"],
+      "properties": {
+        "taskType": { "type": "string" },
+        "complexity": { "type": "number" },
+        "requirementVector": { "type": "object", "additionalProperties": { "type": "number" } },
+        "repoSummary": {
+          "type": "object",
+          "required": ["fileCount", "languages", "frameworks", "diffStatLines"],
+          "properties": {
+            "fileCount": { "type": "integer" },
+            "languages": { "type": "array", "items": { "type": "string" } },
+            "frameworks": { "type": "array", "items": { "type": "string" } },
+            "diffStatLines": {
+              "type": "object",
+              "required": ["added", "removed"],
+              "properties": {
+                "added": { "type": "integer" },
+                "removed": { "type": "integer" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component", "contribution", "effectiveWeight", "summary", "provenanceSources", "normalizationBoundClipped"],
+        "properties": {
+          "component": {
+            "type": "string",
+            "enum": ["capabilityMatch", "costEfficiency", "contextFitness", "latencyScore", "benchmarkSignal", "preferenceAlignment", "reliability"]
+          },
+          "contribution": { "type": "number" },
+          "effectiveWeight": { "type": "number" },
+          "summary": { "type": "string" },
+          "provenanceSources": { "type": "array", "items": { "type": "string" } },
+          "normalizationBoundClipped": { "type": "boolean" }
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "LOW_CONFIDENCE",
+          "PRICING_UNKNOWN",
+          "MODEL_DEGRADED",
+          "STALE_METADATA",
+          "CURSOR_ID_UNVERIFIED",
+          "LOW_CAPABILITY_EVIDENCE",
+          "NORMALIZATION_CLIPPED",
+          "INSUFFICIENT_REGISTRY_EVIDENCE"
+        ]
+      }
+    },
+    "staleFields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["modelId", "field", "lastVerified", "ageDays"],
+        "properties": {
+          "modelId": { "type": "string" },
+          "field": { "type": "string" },
+          "lastVerified": { "type": "string", "format": "date-time" },
+          "ageDays": { "type": "number" }
+        }
+      }
+    },
+    "rejectedModels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["modelId", "reason"],
+        "properties": {
+          "modelId": { "type": "string" },
+          "reason": {
+            "type": "string",
+            "enum": ["budget_exceeded", "provider_excluded", "context_insufficient", "deprecated", "pricing_unknown_under_budget"]
+          }
+        }
+      }
+    },
+    "nearestOptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["modelId", "reason", "relaxationApplied"],
+        "properties": {
+          "modelId": { "type": "string" },
+          "reason": { "type": "string" },
+          "relaxationApplied": { "type": "string", "enum": ["budget", "freeOnly", "localOnly"] }
+        }
+      }
+    },
+    "filterConflicts": { "type": "array", "items": { "type": "string" } },
+    "resolutionSuggestions": { "type": "array", "items": { "type": "string" } },
+    "registrySnapshot": {
+      "type": "object",
+      "required": ["id", "loadedAt", "mode"],
+      "properties": {
+        "id": { "type": "string" },
+        "loadedAt": { "type": "string", "format": "date-time" },
+        "mode": { "type": "string", "enum": ["static_seed", "synced"] }
+      }
+    },
+    "timingMs": { "type": "number" },
+    "guidance": {
+      "type": "object",
+      "required": ["note"],
+      "properties": {
+        "note": { "type": "string" }
+      }
+    },
+    "code": { "type": "string" },
+    "_fixture": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

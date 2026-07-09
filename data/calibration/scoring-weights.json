@@ -1,0 +1,10 @@
+{
+  "capabilityMatch": { "weight": 0.30, "calibrationStatus": "provisional" },
+  "costEfficiency": { "weight": 0.15, "calibrationStatus": "provisional" },
+  "contextFitness": { "weight": 0.15, "calibrationStatus": "provisional" },
+  "latencyScore": { "weight": 0.10, "calibrationStatus": "provisional" },
+  "reliability": { "weight": 0.10, "calibrationStatus": "provisional" },
+  "benchmarkSignal": { "weight": 0.10, "calibrationStatus": "provisional" },
+  "preferenceAlignment": { "weight": 0.10, "calibrationStatus": "provisional" },
+  "calibrationStatus": "provisional"
+}

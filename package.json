@@ -1,0 +1,38 @@
+{
+  "name": "modelrouter-mcp",
+  "version": "0.1.0",
+  "description": "Advisory MCP server for intelligent LLM model recommendations in Cursor",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "modelrouter-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "validate-schemas": "tsx scripts/validate-schemas.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verify-cursor-ids": "tsx scripts/verify-cursor-ids.ts",
+    "lint:cursor-denylist": "tsx scripts/lint-cursor-denylist.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "glob": "^11.0.2",
+    "pino": "^9.6.0",
+    "yaml": "^2.7.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  }
+}

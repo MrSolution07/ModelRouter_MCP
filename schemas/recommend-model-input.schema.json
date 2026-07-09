@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./recommend-model-input.schema.json",
+  "title": "RecommendModelInput",
+  "type": "object",
+  "required": ["planPath"],
+  "properties": {
+    "planPath": {
+      "type": "string",
+      "description": "Absolute or relative path to the plan document"
+    },
+    "repoPath": {
+      "type": "string",
+      "description": "Optional repository root for context analysis"
+    },
+    "config": { "$ref": "./modelrouter-config.schema.json" },
+    "alternativesCount": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10,
+      "default": 3
+    }
+  },
+  "additionalProperties": false
+}

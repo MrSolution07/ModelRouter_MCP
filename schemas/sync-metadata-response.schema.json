@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./sync-metadata-response.schema.json",
+  "title": "SyncMetadataResponse",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "partial", "failed", "blocked_by_privacy_mode", "not_implemented", "error"]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sourceId", "syncStatus"],
+        "properties": {
+          "sourceId": { "type": "string" },
+          "syncStatus": { "type": "string", "enum": ["success", "failed", "skipped"] },
+          "modelsUpdated": { "type": "integer" },
+          "fieldsUpdated": { "type": "integer" },
+          "error": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "staleFields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["modelId", "field", "lastVerified", "ageDays"],
+        "properties": {
+          "modelId": { "type": "string" },
+          "field": { "type": "string" },
+          "lastVerified": { "type": "string", "format": "date-time" },
+          "ageDays": { "type": "number" }
+        }
+      }
+    },
+    "registrySnapshot": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "loadedAt": { "type": "string", "format": "date-time" },
+        "mode": { "type": "string", "enum": ["static_seed", "synced"] }
+      }
+    },
+    "timingMs": { "type": "number" },
+    "_fixture": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

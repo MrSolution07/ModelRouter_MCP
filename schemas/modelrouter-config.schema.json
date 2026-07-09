@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./modelrouter-config.schema.json",
+  "title": "ModelRouterConfig",
+  "description": "User configuration for ModelRouter MCP",
+  "type": "object",
+  "properties": {
+    "privacyMode": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, blocks all outbound HTTP sync and metadata fetch"
+    },
+    "excludedProviders": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "freeOnlyMode": { "type": "boolean", "default": false },
+    "localOnlyMode": { "type": "boolean", "default": false },
+    "maxBudget": {
+      "type": ["number", "null"],
+      "description": "Maximum estimated cost per request in USD"
+    },
+    "allowBudgetRelaxation": { "type": "boolean", "default": false },
+    "preferredProviders": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "logPaths": { "type": "boolean", "default": false },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Opt-in internal validation. Requires API keys. May incur costs."
+        },
+        "apiKeys": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "default": { "enabled": false }
+    },
+    "sync": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "sources": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./model-profile.schema.json",
+  "title": "ModelProfile",
+  "description": "Full model profile with provenance-tracked mutable fields",
+  "type": "object",
+  "required": [
+    "id",
+    "cursorAvailability",
+    "provider",
+    "displayName",
+    "status",
+    "statusChangedAt",
+    "version",
+    "availability",
+    "pricing",
+    "context",
+    "features",
+    "capabilities",
+    "latency",
+    "aliases",
+    "validationStatus"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "cursorModelId": { "$ref": "./provenance-field.schema.json" },
+    "cursorAvailability": {
+      "type": "string",
+      "enum": ["verified", "documented", "unverified", "not_applicable"]
+    },
+    "provider": { "type": "string" },
+    "displayName": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["preview", "active", "deprecated", "unavailable"]
+    },
+    "statusChangedAt": { "type": "string", "format": "date-time" },
+    "version": { "type": "string" },
+    "releaseDate": { "type": ["string", "null"], "format": "date-time" },
+    "deprecatedAt": { "type": ["string", "null"], "format": "date-time" },
+    "availability": {
+      "type": "object",
+      "required": ["regions", "requiresMaxMode", "tier"],
+      "properties": {
+        "regions": { "type": "array", "items": { "type": "string" } },
+        "requiresMaxMode": { "type": "boolean" },
+        "tier": { "type": "string", "enum": ["free", "standard", "premium"] }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "required": ["inputPerMillion", "outputPerMillion", "currency", "unknown"],
+      "properties": {
+        "inputPerMillion": { "$ref": "./provenance-field.schema.json" },
+        "outputPerMillion": { "$ref": "./provenance-field.schema.json" },
+        "currency": { "type": "string" },
+        "unknown": { "type": "boolean" }
+      }
+    },
+    "context": {
+      "type": "object",
+      "required": ["maxInputTokens", "maxOutputTokens"],
+      "properties": {
+        "maxInputTokens": { "$ref": "./provenance-field.schema.json" },
+        "maxOutputTokens": { "$ref": "./provenance-field.schema.json" }
+      }
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "vision": { "$ref": "./provenance-field.schema.json" },
+        "functionCalling": { "$ref": "./provenance-field.schema.json" },
+        "toolUse": { "$ref": "./provenance-field.schema.json" },
+        "structuredOutput": { "$ref": "./provenance-field.schema.json" },
+        "streaming": { "$ref": "./provenance-field.schema.json" },
+        "reasoningMode": { "$ref": "./provenance-field.schema.json" }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": { "$ref": "./provenance-field.schema.json" }
+    },
+    "benchmarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "rawScore", "normalizedScore", "mappedDimensions", "benchmarkModelAlias", "provenance"],
+        "properties": {
+          "name": { "type": "string" },
+          "rawScore": { "type": "number" },
+          "normalizedScore": { "type": "number" },
+          "mappedDimensions": { "type": "array", "items": { "type": "string" } },
+          "benchmarkModelAlias": { "type": "string" },
+          "provenance": { "type": "object" }
+        }
+      }
+    },
+    "latency": {
+      "type": "object",
+      "required": ["p50Ms"],
+      "properties": {
+        "p50Ms": { "$ref": "./provenance-field.schema.json" }
+      }
+    },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "validationStatus": { "type": "string", "enum": ["ok", "degraded"] },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "strengths": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

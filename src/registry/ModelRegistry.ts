@@ -1,0 +1,115 @@
+import { createHash } from "node:crypto";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import path from "node:path";
+import { globSync } from "glob";
+import type { ModelProfile, ProvenanceField, RegistrySnapshot } from "../types/index.js";
+import { getDataDir } from "../utils/paths.js";
+import { assertValid } from "../schemas/validator.js";
+
+const PROVENANCE_REQUIRED_PATHS = [
+  "pricing.inputPerMillion",
+  "pricing.outputPerMillion",
+  "context.maxInputTokens",
+  "context.maxOutputTokens",
+  "latency.p50Ms",
+] as const;
+
+function getAtPath(obj: Record<string, unknown>, dotPath: string): unknown {
+  return dotPath.split(".").reduce<unknown>((acc, key) => {
+    if (acc && typeof acc === "object") return (acc as Record<string, unknown>)[key];
+    return undefined;
+  }, obj);
+}
+
+function assertProvenanceField(value: unknown, path: string): void {
+  if (!value || typeof value !== "object" || !("value" in value) || !("provenance" in value)) {
+    throw new Error(`Model profile field ${path} must be a ProvenanceField wrapper`);
+  }
+  const pf = value as ProvenanceField<unknown>;
+  if (!pf.provenance?.source || pf.provenance.confidence === undefined) {
+    throw new Error(`Model profile field ${path} missing provenance metadata`);
+  }
+}
+
+export class ModelRegistry {
+  private models: ModelProfile[] = [];
+  private snapshot: RegistrySnapshot | null = null;
+  private loadedAt = 0;
+
+  load(mode: "static_seed" | "synced" = "static_seed"): RegistrySnapshot {
+    const modelsDir = path.join(getDataDir(), "models");
+    const files = globSync("**/*.json", { cwd: modelsDir, absolute: true }).filter(
+      (f) => !f.endsWith("_seed-provenance.json"),
+    );
+
+    const hash = createHash("sha256");
+    this.models = [];
+
+    for (const file of files.sort()) {
+      const raw = JSON.parse(readFileSync(file, "utf-8")) as ModelProfile;
+      this.validateProfile(raw, file);
+      assertValid("model-profile.schema.json", raw);
+      this.models.push(raw);
+      hash.update(readFileSync(file));
+    }
+
+    const now = new Date().toISOString();
+    this.snapshot = {
+      id: hash.digest("hex").slice(0, 16),
+      loadedAt: now,
+      mode,
+    };
+    this.loadedAt = Date.now();
+    return this.snapshot;
+  }
+
+  private validateProfile(profile: ModelProfile, file: string): void {
+    for (const p of PROVENANCE_REQUIRED_PATHS) {
+      const val = getAtPath(profile as unknown as Record<string, unknown>, p);
+      assertProvenanceField(val, `${profile.id}.${p}`);
+    }
+    for (const [dim, field] of Object.entries(profile.capabilities ?? {})) {
+      assertProvenanceField(field, `${profile.id}.capabilities.${dim}`);
+      const conf = (field as ProvenanceField<number>).provenance.confidence;
+      const src = (field as ProvenanceField<number>).provenance.source;
+      if (conf > 0.5 && !["benchmark_ingest", "internal_validation", "cursor_api"].includes(src)) {
+        throw new Error(`${file}: capabilities.${dim} confidence > 0.5 requires benchmark/internal/cursor source`);
+      }
+    }
+  }
+
+  getModels(): ModelProfile[] {
+    if (!this.snapshot) this.load();
+    return [...this.models];
+  }
+
+  getModel(id: string): ModelProfile | undefined {
+    return this.getModels().find((m) => m.id === id);
+  }
+
+  getSnapshot(): RegistrySnapshot {
+    if (!this.snapshot) this.load();
+    return this.snapshot!;
+  }
+
+  getLoadTimeMs(): number {
+    return this.loadedAt > 0 ? Date.now() - this.loadedAt : 0;
+  }
+
+  findStaleFields(maxAgeDays = 30): Array<{ modelId: string; field: string; lastVerified: string; ageDays: number }> {
+    const stale: Array<{ modelId: string; field: string; lastVerified: string; ageDays: number }> = [];
+    const now = Date.now();
+    for (const model of this.getModels()) {
+      for (const [dim, field] of Object.entries(model.capabilities)) {
+        const lv = new Date(field.provenance.lastVerified).getTime();
+        const ageDays = (now - lv) / (1000 * 60 * 60 * 24);
+        if (ageDays > maxAgeDays) {
+          stale.push({ modelId: model.id, field: `capabilities.${dim}`, lastVerified: field.provenance.lastVerified, ageDays: Math.round(ageDays) });
+        }
+      }
+    }
+    return stale;
+  }
+}
+
+export const registry = new ModelRegistry();

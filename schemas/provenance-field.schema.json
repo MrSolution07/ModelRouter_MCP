@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./provenance-field.schema.json",
+  "title": "ProvenanceField",
+  "description": "Wrapper for mutable registry values with full provenance tracking",
+  "type": "object",
+  "required": ["value", "provenance"],
+  "properties": {
+    "value": {},
+    "provenance": {
+      "type": "object",
+      "required": ["source", "retrievedAt", "lastVerified", "confidence"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "openrouter_api",
+            "cursor_api",
+            "provider_docs",
+            "benchmark_ingest",
+            "internal_validation",
+            "manual_curated"
+          ]
+        },
+        "sourceUrl": { "type": ["string", "null"] },
+        "retrievedAt": { "type": "string", "format": "date-time" },
+        "lastVerified": { "type": "string", "format": "date-time" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "license": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

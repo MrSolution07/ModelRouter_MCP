@@ -1,0 +1,9 @@
+{
+  "$comment": "confidence.value = Σ(factor_i × weight_i) where each factor is 0-1. Weights sum to 1.0.",
+  "evidenceCoverage": { "weight": 0.30, "calibrationStatus": "provisional" },
+  "scoreMargin": { "weight": 0.25, "calibrationStatus": "provisional" },
+  "dataFreshness": { "weight": 0.20, "calibrationStatus": "provisional" },
+  "validationRecency": { "weight": 0.15, "calibrationStatus": "provisional" },
+  "contextHeadroom": { "weight": 0.10, "calibrationStatus": "provisional" },
+  "calibrationStatus": "provisional"
+}

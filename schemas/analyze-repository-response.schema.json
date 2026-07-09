@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./analyze-repository-response.schema.json",
+  "title": "AnalyzeRepositoryResponse",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "error", "not_implemented"]
+    },
+    "fileCount": { "type": "integer" },
+    "languages": { "type": "array", "items": { "type": "string" } },
+    "frameworks": { "type": "array", "items": { "type": "string" } },
+    "diffStatLines": {
+      "type": "object",
+      "properties": {
+        "added": { "type": "integer" },
+        "removed": { "type": "integer" }
+      }
+    },
+    "packageManagers": { "type": "array", "items": { "type": "string" } },
+    "timingMs": { "type": "number" },
+    "code": { "type": "string" },
+    "_fixture": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

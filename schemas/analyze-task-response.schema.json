@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./analyze-task-response.schema.json",
+  "title": "AnalyzeTaskResponse",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "error", "not_implemented"]
+    },
+    "taskType": { "type": "string" },
+    "complexity": { "type": "number", "minimum": 1, "maximum": 10 },
+    "requirementVector": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["signal", "weight"],
+        "properties": {
+          "signal": { "type": "string" },
+          "weight": { "type": "number" },
+          "matched": { "type": "boolean" }
+        }
+      }
+    },
+    "calibrationStatus": { "type": "string", "enum": ["provisional", "validated"] },
+    "timingMs": { "type": "number" },
+    "code": { "type": "string" },
+    "_fixture": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

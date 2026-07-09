@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./generate-cursor-guidance-response.schema.json",
+  "title": "GenerateCursorGuidanceResponse",
+  "type": "object",
+  "required": ["status"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["ok", "error", "not_implemented"]
+    },
+    "recommendedCursorModelId": { "type": ["string", "null"] },
+    "cursorAvailability": {
+      "type": "string",
+      "enum": ["verified", "documented", "unverified", "not_applicable"]
+    },
+    "disclaimer": {
+      "type": "string",
+      "const": "Cursor may ignore subagent model field. Rules do not control model picker. User must confirm model switch."
+    },
+    "ruleSnippet": { "type": "string" },
+    "subagentTemplate": { "type": "string" },
+    "manualSteps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "_fixture": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

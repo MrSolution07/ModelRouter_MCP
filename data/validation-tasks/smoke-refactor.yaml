@@ -1,0 +1,5 @@
+name: smoke-refactor
+description: Opt-in internal validation fixture — not run on startup
+prompt: "Rename function foo to bar in a single file"
+expectedCapability: coding
+costWarning: true
