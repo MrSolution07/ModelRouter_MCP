@@ -1,0 +1,8 @@
+{
+  "taskType": "ambiguous",
+  "complexityRange": {
+    "min": 5,
+    "max": 8
+  },
+  "notes": "Golden fixture ambiguous/02"
+}
