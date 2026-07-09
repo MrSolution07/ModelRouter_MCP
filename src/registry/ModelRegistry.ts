@@ -110,6 +110,27 @@ export class ModelRegistry {
     }
     return stale;
   }
+
+  applyInMemoryUpdate(
+    modelId: string,
+    fieldPath: string,
+    value: number,
+    provenance: import("../types/index.js").Provenance,
+  ): void {
+    const model = this.models.find((m) => m.id === modelId);
+    if (!model) return;
+    if (fieldPath.startsWith("capabilities.")) {
+      const dim = fieldPath.replace("capabilities.", "");
+      model.capabilities[dim] = { value, provenance };
+    }
+    if (this.snapshot) {
+      this.snapshot.mode = "synced";
+    }
+  }
+
+  reload(): RegistrySnapshot {
+    return this.load(this.snapshot?.mode ?? "static_seed");
+  }
 }
 
 export const registry = new ModelRegistry();
