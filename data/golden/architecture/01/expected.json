@@ -1,0 +1,8 @@
+{
+  "taskType": "architecture",
+  "complexityRange": {
+    "min": 7,
+    "max": 10
+  },
+  "notes": "Golden fixture architecture/01"
+}
