@@ -1,0 +1,8 @@
+{
+  "taskType": "trivial_docs",
+  "complexityRange": {
+    "min": 1,
+    "max": 2
+  },
+  "notes": "Golden fixture trivial_docs/04"
+}
