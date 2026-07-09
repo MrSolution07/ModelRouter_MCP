@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "modelrouter": {
+      "command": "node",
+      "args": ["dist/index.js"],
+      "cwd": "/Users/christian/Documents/GitHub/ModelRouter_MCP"
+    }
+  }
+}
