@@ -85,10 +85,11 @@ function detectFrameworks(repoPath: string): string[] {
 
 function getDiffStats(repoPath: string): { added: number; removed: number } {
   try {
-    const out = execSync("git diff --stat HEAD 2>/dev/null || git diff --stat", {
+    const out = execSync("git diff --stat HEAD 2>/dev/null || git diff --stat 2>/dev/null", {
       cwd: repoPath,
       encoding: "utf-8",
       timeout: 3000,
+      stdio: ["pipe", "pipe", "ignore"],
     });
     let added = 0;
     let removed = 0;
