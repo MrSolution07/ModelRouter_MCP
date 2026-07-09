@@ -1,0 +1,6 @@
+{
+  "models": [
+    { "id": "anthropic-claude-sonnet", "inputPerMillion": 3.0, "outputPerMillion": 15.0 },
+    { "id": "anthropic-claude-haiku", "inputPerMillion": 0.25, "outputPerMillion": 1.25 }
+  ]
+}
