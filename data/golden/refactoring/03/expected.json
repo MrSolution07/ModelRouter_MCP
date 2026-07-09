@@ -1,0 +1,8 @@
+{
+  "taskType": "refactoring",
+  "complexityRange": {
+    "min": 4,
+    "max": 7
+  },
+  "notes": "Golden fixture refactoring/03"
+}
