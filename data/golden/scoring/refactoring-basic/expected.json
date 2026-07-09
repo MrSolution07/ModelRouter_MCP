@@ -1,0 +1,4 @@
+{
+  "acceptableModelIds": ["anthropic-claude-sonnet", "openai-gpt-4o", "deepseek-coder"],
+  "notes": "Winner must be in set — not a single hardcoded ID"
+}

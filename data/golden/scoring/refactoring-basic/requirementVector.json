@@ -1,0 +1,10 @@
+{
+  "requirementVector": {
+    "coding": 8,
+    "reasoning": 7,
+    "planning": 6,
+    "longContext": 5,
+    "vision": 0,
+    "speed": 4,
+    "costSensitivity": 4
+  }
