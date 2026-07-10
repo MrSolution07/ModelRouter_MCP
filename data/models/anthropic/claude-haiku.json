@@ -1,7 +1,7 @@
 {
   "id": "anthropic-claude-haiku",
   "cursorModelId": {
-    "value": "example-cursor-model-id",
+    "value": "claude-4.5-haiku",
     "provenance": {
       "source": "provider_docs",
       "sourceUrl": "https://cursor.com/docs/models-and-pricing",
@@ -32,8 +32,8 @@
       "provenance": {
         "source": "provider_docs",
         "sourceUrl": "https://docs.anthropic.com",
-        "retrievedAt": "2026-07-09T20:02:13.815Z",
-        "lastVerified": "2026-07-09T20:02:13.815Z",
+        "retrievedAt": "2026-07-09T22:22:33.166Z",
+        "lastVerified": "2026-07-09T22:22:33.166Z",
         "confidence": 0.85,
         "license": "provider ToS"
       }
@@ -43,8 +43,8 @@
       "provenance": {
         "source": "provider_docs",
         "sourceUrl": "https://docs.anthropic.com",
-        "retrievedAt": "2026-07-09T20:02:13.815Z",
-        "lastVerified": "2026-07-09T20:02:13.815Z",
+        "retrievedAt": "2026-07-09T22:22:33.166Z",
+        "lastVerified": "2026-07-09T22:22:33.166Z",
         "confidence": 0.85,
         "license": "provider ToS"
       }
@@ -146,13 +146,13 @@
   },
   "capabilities": {
     "coding": {
-      "value": 6.8,
+      "value": 7.099999999999999,
       "provenance": {
-        "source": "manual_curated",
-        "sourceUrl": null,
-        "retrievedAt": "2026-01-01T00:00:00.000Z",
-        "lastVerified": "2026-01-01T00:00:00.000Z",
-        "confidence": 0.35,
+        "source": "internal_validation",
+        "sourceUrl": "validation-task:smoke-refactor",
+        "retrievedAt": "2026-07-09T22:22:33.178Z",
+        "lastVerified": "2026-07-09T22:22:33.178Z",
+        "confidence": 0.85,
         "license": null
       }
     },

@@ -5,7 +5,7 @@ import YAML from "yaml";
 import type { PrivacyGuard } from "../privacy/PrivacyGuard.js";
 import { registry } from "../registry/ModelRegistry.js";
 import { createProvenance, registryWriter } from "../registry/RegistryWriter.js";
-import { getDataDir } from "../utils/paths.js";
+import { getPackagedDataDir } from "../utils/paths.js";
 
 export interface ValidationTask {
   name: string;
@@ -31,7 +31,7 @@ export class InternalTaskRunner {
   }
 
   loadTasks(): ValidationTask[] {
-    const dir = path.join(getDataDir(), "validation-tasks");
+    const dir = path.join(getPackagedDataDir(), "validation-tasks");
     const files = globSync("*.yaml", { cwd: dir, absolute: true });
     return files.map((file) => {
       const raw = YAML.parse(readFileSync(file, "utf-8")) as ValidationTask;

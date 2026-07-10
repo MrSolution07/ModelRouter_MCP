@@ -1,1 +1,24 @@
-{ "data": [{ "id": "example/model", "pricing": { "prompt": "0.001", "completion": "0.002" } }] }
+{
+  "data": [
+    {
+      "id": "anthropic/claude-sonnet",
+      "pricing": { "prompt": "0.000003", "completion": "0.000015" }
+    },
+    {
+      "id": "anthropic/claude-haiku",
+      "pricing": { "prompt": "0.000001", "completion": "0.000005" }
+    },
+    {
+      "id": "openai/gpt-4o",
+      "pricing": { "prompt": "0.0000025", "completion": "0.00001" }
+    },
+    {
+      "id": "openai/gpt-4o-mini",
+      "pricing": { "prompt": "0.00000015", "completion": "0.0000006" }
+    },
+    {
+      "id": "google/gemini-pro",
+      "pricing": { "prompt": "0.000002", "completion": "0.000012" }
+    }
+  ]
+}

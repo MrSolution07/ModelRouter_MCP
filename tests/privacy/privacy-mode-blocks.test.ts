@@ -3,8 +3,8 @@ import { PrivacyGuard, PrivacyBlockedError } from "../../src/privacy/PrivacyGuar
 import { handleSyncMetadata } from "../../src/tools/handlers.js";
 
 describe("privacy-mode-blocks", () => {
-  it("blocks sync in privacy mode", () => {
-    const result = handleSyncMetadata({ privacyMode: true });
+  it("blocks sync in privacy mode", async () => {
+    const result = await handleSyncMetadata({ privacyMode: true });
     expect(result.status).toBe("blocked_by_privacy_mode");
   });
 

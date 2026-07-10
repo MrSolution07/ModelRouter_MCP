@@ -2,7 +2,7 @@
 
 ## Principle
 
-ModelRouter MCP operates locally over MCP stdio. **User data never leaves the machine via outbound HTTP, sync, telemetry export, or logs.**
+ModelRouter MCP operates locally over MCP stdio. **User plan and repository data never leave the machine via outbound HTTP.** Public model metadata (Class D) may be fetched inbound when `privacyMode: false`.
 
 Local MCP tool responses (including `requirementVector`, task analysis, and token estimates) are permitted — they stay within the same process boundary on the user's machine.
 

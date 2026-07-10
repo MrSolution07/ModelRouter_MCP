@@ -4,21 +4,22 @@ import { analyzeRepository } from "../analysis/RepoAnalyzer.js";
 import { analyzeTask } from "../analysis/TaskAnalyzer.js";
 import { PrivacyGuard } from "../privacy/PrivacyGuard.js";
 import { registry } from "../registry/ModelRegistry.js";
-import { computeConfidence, scoreModels } from "../scoring/ScoringEngine.js";
+import { computeConfidence, getCalibrationStatus, scoreModels } from "../scoring/ScoringEngine.js";
 import { assertValid } from "../schemas/validator.js";
 import { SyncService } from "../sync/SyncService.js";
 import { TelemetryStore } from "../telemetry/TelemetryStore.js";
-import { GUIDANCE_DISCLAIMER, STUB_RESPONSE, type ModelRouterConfig } from "../types/index.js";
+import { GUIDANCE_DISCLAIMER, type ModelRouterConfig } from "../types/index.js";
 import { InternalTaskRunner } from "../validation/InternalTaskRunner.js";
-import { BenchmarkIngestService } from "../benchmarks/BenchmarkIngestService.js";
 
 const privacyGuard = new PrivacyGuard();
 const syncService = new SyncService(privacyGuard);
 const telemetry = new TelemetryStore();
 const internalValidation = new InternalTaskRunner(privacyGuard);
 
+const ALL_SYNC_SOURCES = ["openrouter_models", "ollama_local", "swe_bench_leaderboard", "anthropic_docs"];
+
 function mergeConfig(input?: ModelRouterConfig): ModelRouterConfig {
-  return {
+  const base: ModelRouterConfig = {
     privacyMode: false,
     excludedProviders: [],
     freeOnlyMode: false,
@@ -27,7 +28,16 @@ function mergeConfig(input?: ModelRouterConfig): ModelRouterConfig {
     preferredProviders: [],
     logPaths: false,
     validation: { enabled: false },
+    sync: { enabled: true, sources: ALL_SYNC_SOURCES },
+  };
+  return {
+    ...base,
     ...input,
+    validation: { ...base.validation, ...input?.validation },
+    sync: {
+      enabled: input?.sync?.enabled ?? base.sync!.enabled,
+      sources: input?.sync?.sources ?? base.sync!.sources,
+    },
   };
 }
 
@@ -41,7 +51,7 @@ export function handleAnalyzeTask(args: { planPath: string; repoPath?: string })
     complexity: analysis.complexity,
     requirementVector: analysis.requirementVector,
     signals: analysis.signals,
-    calibrationStatus: "provisional" as const,
+    calibrationStatus: getCalibrationStatus(),
     timingMs: Date.now() - start,
   };
   assertValid("analyze-task-response.schema.json", response);
@@ -105,7 +115,7 @@ export function handleRecommendModel(args: {
   if (config.privacyMode) {
     const blocked = {
       status: "blocked_by_privacy_mode" as const,
-      confidence: { value: 0, factors: { evidenceCoverage: 0, scoreMargin: 0, dataFreshness: 0, validationRecency: 0, contextHeadroom: 0 }, calibrationStatus: "provisional" as const },
+      confidence: { value: 0, factors: { evidenceCoverage: 0, scoreMargin: 0, dataFreshness: 0, validationRecency: 0, contextHeadroom: 0 }, calibrationStatus: getCalibrationStatus() },
       estimates: { inputTokens: 0, outputTokens: 0, totalTokens: 0, costUsd: { value: null, unknown: true }, latencyMs: { value: null, unknown: true } },
       analysis: { taskType: "", complexity: 0, requirementVector: {}, repoSummary: { fileCount: 0, languages: [], frameworks: [], diffStatLines: { added: 0, removed: 0 } } },
       evidence: [],
@@ -236,7 +246,7 @@ export function handleEstimateCost(args: { planPath: string; repoPath?: string; 
   };
 }
 
-export function handleSyncMetadata(config?: ModelRouterConfig) {
+export async function handleSyncMetadata(config?: ModelRouterConfig) {
   const merged = mergeConfig(config);
   privacyGuard.setPrivacyMode(merged.privacyMode ?? false);
   if (merged.privacyMode) {
@@ -244,7 +254,7 @@ export function handleSyncMetadata(config?: ModelRouterConfig) {
     assertValid("sync-metadata-response.schema.json", blocked);
     return blocked;
   }
-  const result = syncService.syncAll();
+  const result = await syncService.syncAll(merged);
   assertValid("sync-metadata-response.schema.json", result);
   return result;
 }
@@ -280,13 +290,14 @@ export function handleRunInternalValidation(config?: ModelRouterConfig) {
   return internalValidation.validate(mergeConfig(config));
 }
 
-export function handleBenchmarkIngest() {
-  const ingest = new BenchmarkIngestService(privacyGuard);
-  return ingest.ingestFromFixture();
-}
-
 export function handleValidate(config?: ModelRouterConfig) {
   return handleRunInternalValidation(config);
 }
 
-export { STUB_RESPONSE };
+export function getSyncService(): SyncService {
+  return syncService;
+}
+
+export function getPrivacyGuard(): PrivacyGuard {
+  return privacyGuard;
+}

@@ -45,6 +45,10 @@
       }
     },
     "timingMs": { "type": "number" },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
     "_fixture": { "type": "boolean" }
   },
   "additionalProperties": false

@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { RequirementVector, TaskAnalysis } from "../types/index.js";
-import { getDataDir } from "../utils/paths.js";
+import { getPackagedDataDir } from "../utils/paths.js";
 
 interface TaskSignalsConfig {
   version: string;
@@ -16,7 +16,7 @@ let cachedSignals: TaskSignalsConfig | null = null;
 
 function loadSignals(): TaskSignalsConfig {
   if (!cachedSignals) {
-    const file = path.join(getDataDir(), "calibration", "task-signals.json");
+    const file = path.join(getPackagedDataDir(), "calibration", "task-signals.json");
     cachedSignals = JSON.parse(readFileSync(file, "utf-8")) as TaskSignalsConfig;
   }
   return cachedSignals;

@@ -1,8 +1,9 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
 import type { ModelProfile, Provenance, ProvenanceField } from "../types/index.js";
-import { getDataDir } from "../utils/paths.js";
+import { atomicWriteJson } from "../utils/atomicWrite.js";
+import { getPackagedDataDir, getUserDataDir } from "../utils/paths.js";
 
 export function createProvenance(
   source: Provenance["source"],
@@ -27,9 +28,18 @@ export function provenanceField<T>(value: T, source: Provenance["source"], overr
 export class RegistryWriter {
   private modelPathIndex = new Map<string, string>();
 
+  private packagedModelsDir(): string {
+    return path.join(getPackagedDataDir(), "models");
+  }
+
+  private userModelsDir(): string {
+    return path.join(getUserDataDir(), "models");
+  }
+
   indexModels(): void {
-    const modelsDir = path.join(getDataDir(), "models");
-    const files = globSync("**/*.json", { cwd: modelsDir, absolute: true }).filter(
+    this.modelPathIndex.clear();
+    const userDir = this.userModelsDir();
+    const files = globSync("**/*.json", { cwd: userDir, absolute: true }).filter(
       (f) => !f.endsWith("_seed-provenance.json"),
     );
     for (const file of files) {
@@ -40,7 +50,28 @@ export class RegistryWriter {
 
   getModelPath(modelId: string): string | undefined {
     if (this.modelPathIndex.size === 0) this.indexModels();
-    return this.modelPathIndex.get(modelId);
+
+    const existing = this.modelPathIndex.get(modelId);
+    if (existing) return existing;
+
+    const packagedFiles = globSync("**/*.json", { cwd: this.packagedModelsDir(), absolute: true }).filter(
+      (f) => !f.endsWith("_seed-provenance.json"),
+    );
+    for (const packagedFile of packagedFiles) {
+      const profile = JSON.parse(readFileSync(packagedFile, "utf-8")) as ModelProfile;
+      if (profile.id !== modelId) continue;
+      const rel = path.relative(this.packagedModelsDir(), packagedFile);
+      const userFile = path.join(this.userModelsDir(), rel);
+      mkdirSync(path.dirname(userFile), { recursive: true });
+      copyFileSync(packagedFile, userFile);
+      this.modelPathIndex.set(modelId, userFile);
+      return userFile;
+    }
+    return undefined;
+  }
+
+  private writeProfile(filePath: string, profile: ModelProfile): void {
+    atomicWriteJson(filePath, profile);
   }
 
   updateCapability(
@@ -54,7 +85,7 @@ export class RegistryWriter {
 
     const profile = JSON.parse(readFileSync(filePath, "utf-8")) as ModelProfile;
     profile.capabilities[dimension] = { value, provenance };
-    writeFileSync(filePath, JSON.stringify(profile, null, 2) + "\n");
+    this.writeProfile(filePath, profile);
     return true;
   }
 
@@ -75,14 +106,30 @@ export class RegistryWriter {
       currency: "USD",
       unknown,
     };
-    writeFileSync(filePath, JSON.stringify(profile, null, 2) + "\n");
+    this.writeProfile(filePath, profile);
+    return true;
+  }
+
+  updateBenchmarks(
+    modelId: string,
+    benchmarks: NonNullable<ModelProfile["benchmarks"]>,
+    capabilityUpdates: Record<string, { value: number; provenance: Provenance }>,
+  ): boolean {
+    const filePath = this.getModelPath(modelId);
+    if (!filePath) return false;
+
+    const profile = JSON.parse(readFileSync(filePath, "utf-8")) as ModelProfile;
+    profile.benchmarks = benchmarks;
+    for (const [dim, field] of Object.entries(capabilityUpdates)) {
+      profile.capabilities[dim] = field;
+    }
+    this.writeProfile(filePath, profile);
     return true;
   }
 
   writeQuarantine(dir: string, filename: string, payload: unknown): void {
-    const fullDir = path.join(getDataDir(), dir);
-    mkdirSync(fullDir, { recursive: true });
-    writeFileSync(path.join(fullDir, filename), JSON.stringify(payload, null, 2) + "\n");
+    const fullDir = path.join(getUserDataDir(), dir);
+    atomicWriteJson(path.join(fullDir, filename), payload);
   }
 }
 

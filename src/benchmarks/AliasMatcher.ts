@@ -1,12 +1,32 @@
+export function normalizeAlias(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+export function providerFamily(provider: string): string {
+  const p = provider.toLowerCase();
+  if (p === "openai" || p.startsWith("openai")) return "openai";
+  if (p === "anthropic" || p.startsWith("anthropic")) return "anthropic";
+  if (p.includes("google") || p === "gemini") return "google";
+  if (p.includes("deepseek")) return "deepseek";
+  if (p.includes("mistral")) return "mistral";
+  return p;
+}
+
+export function aliasProviderFamily(alias: string): string {
+  const a = alias.toLowerCase();
+  if (a.includes("claude") || a.includes("anthropic")) return "anthropic";
+  if (a.includes("gpt") || a.includes("openai")) return "openai";
+  if (a.includes("gemini") || a.includes("google")) return "google";
+  if (a.includes("deepseek")) return "deepseek";
+  if (a.includes("mistral")) return "mistral";
+  return "";
+}
+
 export interface AliasMatchResult {
   matched: boolean;
   confidence: number;
   method: "exact" | "alias" | "fuzzy" | "none";
   modelId?: string;
-}
-
-export function normalizeAlias(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
 export function levenshtein(a: string, b: string): number {
@@ -31,9 +51,20 @@ export function matchBenchmarkAlias(
   if (profile.aliases.includes(alias)) return { matched: true, confidence: 0.95, method: "alias", modelId: profile.id };
 
   const na = normalizeAlias(alias);
-  const np = normalizeAlias(profile.id);
-  if (levenshtein(na, np) <= 2) {
-    return { matched: true, confidence: 0.7, method: "fuzzy", modelId: profile.id };
+  const candidates = [normalizeAlias(profile.id), ...profile.aliases.map(normalizeAlias)];
+  let bestDist = Infinity;
+  for (const c of candidates) {
+    bestDist = Math.min(bestDist, levenshtein(na, c));
+  }
+
+  if (bestDist <= 2) {
+    const sameFamily = aliasProviderFamily(alias) === providerFamily(profile.provider);
+    return {
+      matched: true,
+      confidence: sameFamily ? 0.85 : 0.7,
+      method: "fuzzy",
+      modelId: profile.id,
+    };
   }
   return { matched: false, confidence: 0, method: "none" };
 }

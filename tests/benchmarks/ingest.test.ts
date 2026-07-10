@@ -5,6 +5,7 @@ import { findBestBenchmarkMatch } from "../../src/benchmarks/AliasMatcher.js";
 import { registry } from "../../src/registry/ModelRegistry.js";
 import path from "node:path";
 import { existsSync } from "node:fs";
+import { getUserDataDir } from "../../src/utils/paths.js";
 
 describe("benchmark ingest", () => {
   beforeAll(() => registry.load());
@@ -22,7 +23,7 @@ describe("benchmark ingest", () => {
     const result = ingest.ingestFromFixture();
     expect(result.matched.length).toBeGreaterThanOrEqual(1);
     expect(result.quarantined).toContain("unknown-model-xyz");
-    const quarantineFile = path.join(import.meta.dirname, "../../data/benchmarks/unmatched/unknown-model-xyz.json");
+    const quarantineFile = path.join(getUserDataDir(), "benchmarks/unmatched/unknown-model-xyz.json");
     expect(existsSync(quarantineFile)).toBe(true);
   });
 });

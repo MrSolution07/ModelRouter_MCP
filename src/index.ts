@@ -4,7 +4,6 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { registry } from "./registry/ModelRegistry.js";
 import {
-  STUB_RESPONSE,
   handleAnalyzeRepository,
   handleAnalyzeTask,
   handleEstimateCost,
@@ -15,12 +14,14 @@ import {
   handleRecommendModel,
   handleSyncMetadata,
   handleRunInternalValidation,
-  handleBenchmarkIngest,
+  getSyncService,
+  getPrivacyGuard,
 } from "./tools/handlers.js";
+import { getPackageVersion } from "./utils/version.js";
 
 const server = new McpServer({
   name: "modelrouter-mcp",
-  version: "0.1.0",
+  version: getPackageVersion(),
 });
 
 registry.load();
@@ -107,7 +108,7 @@ server.tool(
       {
         type: "text",
         text: JSON.stringify(
-          handleSyncMetadata(args.config as Parameters<typeof handleSyncMetadata>[0]),
+          await handleSyncMetadata(args.config as Parameters<typeof handleSyncMetadata>[0]),
           null,
           2,
         ),
@@ -172,6 +173,14 @@ server.tool(
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
+
+  const syncService = getSyncService();
+  const privacyGuard = getPrivacyGuard();
+  if (syncService.shouldRunBackgroundSync({ privacyMode: privacyGuard.isPrivacyMode() })) {
+    void syncService.syncAll({ privacyMode: false }).catch(() => {
+      // Background sync failures are non-fatal; user cache is preserved.
+    });
+  }
 }
 
 main().catch((err) => {

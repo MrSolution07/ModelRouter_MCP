@@ -1,4 +1,5 @@
 import type { PrivacyGuard } from "../../privacy/PrivacyGuard.js";
+import type { HttpPort } from "../../ports/HttpPort.js";
 
 export interface SyncSourceResult {
   sourceId: string;
@@ -10,11 +11,13 @@ export interface SyncSourceResult {
 
 export abstract class BaseAdapter {
   protected privacyGuard: PrivacyGuard;
+  protected http: HttpPort;
 
-  constructor(privacyGuard: PrivacyGuard) {
+  constructor(privacyGuard: PrivacyGuard, http: HttpPort) {
     this.privacyGuard = privacyGuard;
+    this.http = http;
   }
 
   abstract get sourceId(): string;
-  abstract sync(): SyncSourceResult;
+  abstract sync(): Promise<SyncSourceResult>;
 }

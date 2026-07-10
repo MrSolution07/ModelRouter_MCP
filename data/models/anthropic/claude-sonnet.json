@@ -1,7 +1,7 @@
 {
   "id": "anthropic-claude-sonnet",
   "cursorModelId": {
-    "value": "example-cursor-model-id",
+    "value": "claude-sonnet-5-thinking-low",
     "provenance": {
       "source": "provider_docs",
       "sourceUrl": "https://cursor.com/docs/models-and-pricing",
@@ -32,8 +32,8 @@
       "provenance": {
         "source": "provider_docs",
         "sourceUrl": "https://docs.anthropic.com",
-        "retrievedAt": "2026-07-09T20:02:13.814Z",
-        "lastVerified": "2026-07-09T20:02:13.814Z",
+        "retrievedAt": "2026-07-09T22:22:33.164Z",
+        "lastVerified": "2026-07-09T22:22:33.164Z",
         "confidence": 0.85,
         "license": "provider ToS"
       }
@@ -43,8 +43,8 @@
       "provenance": {
         "source": "provider_docs",
         "sourceUrl": "https://docs.anthropic.com",
-        "retrievedAt": "2026-07-09T20:02:13.814Z",
-        "lastVerified": "2026-07-09T20:02:13.814Z",
+        "retrievedAt": "2026-07-09T22:22:33.164Z",
+        "lastVerified": "2026-07-09T22:22:33.164Z",
         "confidence": 0.85,
         "license": "provider ToS"
       }
@@ -149,9 +149,9 @@
       "value": 8.2,
       "provenance": {
         "source": "benchmark_ingest",
-        "sourceUrl": "/Users/christian/Documents/GitHub/ModelRouter_MCP/data/benchmarks/fixtures/swe-bench.json",
-        "retrievedAt": "2026-07-09T20:02:13.812Z",
-        "lastVerified": "2026-07-09T20:02:13.812Z",
+        "sourceUrl": "data/benchmarks/fixtures/swe-bench.json",
+        "retrievedAt": "2026-07-09T22:22:33.283Z",
+        "lastVerified": "2026-07-09T22:22:33.283Z",
         "confidence": 1,
         "license": "research"
       }

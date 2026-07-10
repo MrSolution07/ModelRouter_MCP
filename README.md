@@ -7,8 +7,8 @@ Advisory MCP server for intelligent LLM model recommendations in Cursor.
 **Ships:**
 - Advisory `recommend_model` with schema-validated JSON
 - Heuristic task analysis (Layer A) + metadata scoring (Layer B)
-- Static seed registry (`registrySnapshot.mode: static_seed`)
-- Benchmark ingest metadata (fixture-based until live sync)
+- Static seed registry with user-writable cache (`~/.modelrouter`)
+- Live metadata sync by default (Class D inbound fetch when `privacyMode: false`)
 - Guidance snippets for Cursor — **user manually picks model**
 
 **Does NOT ship:**
@@ -21,13 +21,26 @@ Advisory MCP server for intelligent LLM model recommendations in Cursor.
 ```bash
 npm install
 npm run build
-npm test
+MODELROUTER_USE_FIXTURES=1 npm test
 npm run validate-schemas
 npm run smoke
 ```
 
 ### Cursor MCP Configuration
 
+**npm (after publish):**
+```json
+{
+  "mcpServers": {
+    "modelrouter": {
+      "command": "npx",
+      "args": ["-y", "modelrouter-mcp"]
+    }
+  }
+}
+```
+
+**Local development:**
 ```json
 {
   "mcpServers": {
@@ -39,7 +52,7 @@ npm run smoke
 }
 ```
 
-## Tools
+## Tools (10)
 
 | Tool | Description |
 |------|-------------|
@@ -52,10 +65,45 @@ npm run smoke
 | `generate_cursor_guidance` | Advisory snippets — does not apply model |
 | `get_telemetry_summary` | Local telemetry only |
 | `estimate_cost` | Cost estimate for a specific model |
+| `run_internal_validation` | Opt-in stub validation (disabled by default) |
+
+Benchmark ingest is internal-only (via `SweBenchAdapter`), not exposed as an MCP tool.
+
+## Configuration
+
+See [`schemas/modelrouter-config.schema.json`](schemas/modelrouter-config.schema.json).
+
+| Setting | Default | Notes |
+|---------|---------|-------|
+| `privacyMode` | `false` | Blocks all outbound HTTP when `true` |
+| `sync.enabled` | `true` | Disable to skip metadata sync |
+| `sync.sources` | all adapters | Filter by source ID |
+| `validation.enabled` | `false` | Opt-in; may incur API costs |
+
+**Environment variables** (not in JSON schema):
+- `MODELROUTER_DATA_DIR` — override user cache directory (default `~/.modelrouter`)
+- `MODELROUTER_USE_FIXTURES=1` — fixtures only, no live HTTP (CI/dev offline)
 
 ## Privacy
 
-See [PRIVACY.md](./PRIVACY.md). User data never leaves the machine via outbound HTTP.
+See [PRIVACY.md](./PRIVACY.md). User plan and repository data are never sent outbound. Optional public model metadata fetch (Class D) occurs when `privacyMode: false`.
+
+## Data directories
+
+| Path | Purpose |
+|------|---------|
+| Packaged `data/models/` | Read-only seeds (npm install) |
+| `~/.modelrouter/models/` | Writable user cache (sync updates) |
+| `~/.modelrouter/sync-state.json` | Last sync TTL tracking |
+
+Single-instance assumption: concurrent writes are not supported.
+
+## Troubleshooting
+
+- **Build errors:** Run `npm run build` before starting MCP
+- **Stale metadata:** Call `sync_metadata` or wait for background TTL sync (24h)
+- **Offline dev:** Set `MODELROUTER_USE_FIXTURES=1`
+- **Privacy:** Set `privacyMode: true` in config to block all outbound HTTP
 
 ## Maintainer Scripts
 
@@ -65,29 +113,23 @@ npm run verify-cursor-ids
 
 # CI denylist check
 npm run lint:cursor-denylist
+
+# Record live sync fixtures (network required)
+npx tsx scripts/record-sync-fixtures.ts
 ```
-
-## Registry
-
-Seed models live in `data/models/`. Run `sync_metadata` to refresh from fixture-based adapters (OpenRouter, SWE-bench, Anthropic docs, Ollama). Registry uses static seeds until first successful sync.
 
 ## Implementation status
 
 | Phase | Status |
 |-------|--------|
-| 0 Contracts | Complete |
-| 1 MCP transport | Complete |
-| 2 Registry | Complete (8 seeds) |
-| 3 Analysis + golden set | Complete (30 fixtures) |
-| 4 Scoring | Complete |
-| 5 E2E static_seed | Complete |
-| 6 Sync | Complete (fixture-based) |
-| 7 Benchmark ingest | Complete |
-| 8 Internal validation | Complete (opt-in) |
-| 9 Telemetry + guidance | Complete |
+| Runtime foundation (user dir, async sync) | Complete |
+| Live metadata sync | Complete |
+| Registry quality (cursor IDs, benchmarks) | Complete |
+| Calibration | Provisional (run `npx tsx scripts/calibrate-scoring.ts` to validate) |
+| npm publish | Ready |
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for maintainer workflows.
 
 ## License
 
-MIT
+MIT — see [LICENSE](./LICENSE)

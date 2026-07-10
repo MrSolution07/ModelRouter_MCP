@@ -1,19 +1,20 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { getDataDir } from "../../utils/paths.js";
-import { BaseAdapter, type SyncSourceResult } from "./BaseAdapter.js";
-import { createProvenance, registryWriter } from "../../registry/RegistryWriter.js";
 import { registry } from "../../registry/ModelRegistry.js";
+import { createProvenance, registryWriter } from "../../registry/RegistryWriter.js";
+import { useFixtures } from "../../utils/env.js";
+import { getPackagedDataDir } from "../../utils/paths.js";
+import { BaseAdapter, type SyncSourceResult } from "./BaseAdapter.js";
 
 export class AnthropicDocsAdapter extends BaseAdapter {
   get sourceId() {
     return "anthropic_docs";
   }
 
-  sync(): SyncSourceResult {
+  async sync(): Promise<SyncSourceResult> {
     try {
       this.privacyGuard.assertOutboundAllowed("D");
-      const fixture = path.join(getDataDir(), "sync", "fixtures", "anthropic-docs.json");
+      const fixture = path.join(getPackagedDataDir(), "sync", "fixtures", "anthropic-docs.json");
       const data = JSON.parse(readFileSync(fixture, "utf-8")) as {
         models: Array<{ id: string; inputPerMillion: number; outputPerMillion: number; unknown?: boolean }>;
       };
@@ -29,10 +30,7 @@ export class AnthropicDocsAdapter extends BaseAdapter {
           license: "provider ToS",
         });
 
-        if (entry.unknown) {
-          // Keep existing values per plan — never delete on failure
-          continue;
-        }
+        if (entry.unknown) continue;
 
         registryWriter.updatePricing(model.id, entry.inputPerMillion, entry.outputPerMillion, provenance);
         fieldsUpdated += 2;

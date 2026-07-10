@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { ModelProfile, ModelRouterConfig, ProvenanceField, RequirementVector } from "../types/index.js";
-import { getDataDir } from "../utils/paths.js";
+import { getPackagedDataDir } from "../utils/paths.js";
 
 interface NormalizationBounds {
   costUsd: { min: number; max: number };
@@ -46,7 +46,12 @@ export interface ScoringResult {
 }
 
 function loadJson<T>(file: string): T {
-  return JSON.parse(readFileSync(path.join(getDataDir(), "calibration", file), "utf-8")) as T;
+  return JSON.parse(readFileSync(path.join(getPackagedDataDir(), "calibration", file), "utf-8")) as T;
+}
+
+export function getCalibrationStatus(): "provisional" | "validated" {
+  const weights = loadJson<{ calibrationStatus?: string }>("scoring-weights.json");
+  return weights.calibrationStatus === "validated" ? "validated" : "provisional";
 }
 
 export function normalizeValue(value: number, min: number, max: number): { normalized: number; clipped: boolean } {
@@ -337,5 +342,5 @@ export function computeConfidence(
     value = Math.min(value, 0.6);
   }
 
-  return { value: Math.round(value * 1000) / 1000, factors, calibrationStatus: "provisional" };
+  return { value: Math.round(value * 1000) / 1000, factors, calibrationStatus: getCalibrationStatus() };
 }

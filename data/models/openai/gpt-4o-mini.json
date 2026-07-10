@@ -1,7 +1,7 @@
 {
   "id": "openai-gpt-4o-mini",
   "cursorModelId": {
-    "value": "example-cursor-model-id",
+    "value": "gpt-5-mini",
     "provenance": { "source": "provider_docs", "sourceUrl": "https://cursor.com/docs/models-and-pricing", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null }
   },
   "cursorAvailability": "documented",
@@ -40,7 +40,7 @@
   "latency": {
     "p50Ms": { "value": 2000, "provenance": { "source": "manual_curated", "sourceUrl": null, "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null } }
   },
-  "aliases": ["gpt-4o-mini"],
+  "aliases": ["gpt-4o-mini", "openai/gpt-4o-mini"],
   "validationStatus": "ok",
   "limitations": ["Less capable for complex architecture"],
   "strengths": ["Low cost", "Fast", "Trivial tasks"]

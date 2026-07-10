@@ -1,7 +1,7 @@
 {
   "id": "google-gemini-pro",
   "cursorModelId": {
-    "value": "example-cursor-model-id",
+    "value": "gemini-3.1-pro",
     "provenance": { "source": "provider_docs", "sourceUrl": "https://cursor.com/docs/models-and-pricing", "retrievedAt": "2026-01-01T00:00:00.000Z", "lastVerified": "2026-01-01T00:00:00.000Z", "confidence": 0.3, "license": null }
   },
   "cursorAvailability": "documented",

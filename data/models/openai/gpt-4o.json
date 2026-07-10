@@ -1,7 +1,7 @@
 {
   "id": "openai-gpt-4o",
   "cursorModelId": {
-    "value": "example-cursor-model-id",
+    "value": "gpt-5.2",
     "provenance": {
       "source": "provider_docs",
       "sourceUrl": "https://cursor.com/docs/models-and-pricing",
@@ -149,9 +149,9 @@
       "value": 7.8,
       "provenance": {
         "source": "benchmark_ingest",
-        "sourceUrl": "/Users/christian/Documents/GitHub/ModelRouter_MCP/data/benchmarks/fixtures/swe-bench.json",
-        "retrievedAt": "2026-07-09T20:02:13.814Z",
-        "lastVerified": "2026-07-09T20:02:13.814Z",
+        "sourceUrl": "data/benchmarks/fixtures/swe-bench.json",
+        "retrievedAt": "2026-07-09T22:22:33.286Z",
+        "lastVerified": "2026-07-09T22:22:33.286Z",
         "confidence": 1,
         "license": "research"
       }
